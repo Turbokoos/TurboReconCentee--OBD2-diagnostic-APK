@@ -1,5 +1,22 @@
 # TurboReconCentee--OBD2-diagnostic-APK
-connect to vehicle via bluetooth or diagnostic OBD2 cable
+TurboRecon-OBD2-App/
+├── app/
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       │   └── com/turborecon/obd2/
+│   │       │       ├── MainActivity.java
+│   │       │       └── BluetoothHandler.java
+│   │       └── res/
+│   │           ├── layout/
+│   │           │   └── activity_main.xml
+│   │           └── drawable/
+│   │               └── logo_turbo.png
+│   └── AndroidManifest.xml
+├── build.gradle
+├── settings.gradle
+├── .gitignore
+└── README.mdconnect to vehicle via bluetooth or diagnostic OBD2 cable
 main options-log in-and do diagnostic- write report on faied parts- create quotation 
 under diagnostic:select vehicle,make,modle,year or online vin identification
 scan read and clear obd codes
