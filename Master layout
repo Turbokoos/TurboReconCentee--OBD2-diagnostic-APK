@@ -1,0 +1,16 @@
+TurboRecon-OBD2-App/
+├── README.md                  ← Project description
+├── app/
+│   ├── src/
+│   │   ├── MainActivity.java  ← Main screen code
+│   │   ├── ObdScanner.java    ← OBD2 communication logic
+│   │   ├── ReportGen.java     ← PDF report generation
+│   │   └── BluetoothHandler.java
+│   └── res/
+│       ├── layout/
+│       │   └── activity_main.xml  ← App screen layout
+│       └── drawable/
+│           └── logo_turbo.png     ← App logo
+├── .gitignore                ← Files GitHub will ignore
+├── build.gradle              ← App build settings
+└── LICENSE                   ← Optional: type of sharing allowed
