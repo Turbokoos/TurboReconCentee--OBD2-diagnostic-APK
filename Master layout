@@ -2,14 +2,175 @@ TurboRecon-OBD2-App/
 ├── README.md                  ← Project description
 ├── app/
 │   ├── src/
-│   │   ├── MainActivity.java  ← Main screen code
+│   │   ├── MainActivity.java Button dtcBtn = findViewById(R.id.btnDtcScanner);
+dtcBtn.setOnClickListener(v -> {
+    Intent intent = new Intent(MainActivity.this, DtcScannerActivity.class);
+    startActivity(intent);
+}); package com.turborecon.obd2;<Button
+    android:id="@+id/btnDtcScanner"
+    android:text="Go to DTC Scanner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"/><Button
+    android:id="@+id/btnDtcScanner"
+    android:text="Go to DTC Scanner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"/>
+
+import android.app.Activity;
+import android.bluetooth.BluetoothSocket;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+public class DtcScannerActivity extends Activity {
+
+    private TextView resultView;
+    private Button readButton, clearButton;
+    private BluetoothSocket socket;
+    private InputStream inStream;
+    private OutputStream outStream;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dtc_scanner);
+
+        resultView = findViewById(R.id.dtcResult);
+        readButton = findViewById(R.id.btnReadDTC);
+        clearButton = findViewById(R.id.btnClearDTC);
+
+        socket = BluetoothHandler.getSocket(); // Assumes you store the socket statically
+        try {
+            inStream = socket.getInputStream();
+            outStream = socket.getOutputStream();
+        } catch (IOException e) {
+            Toast.makeText(this, "Stream error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        readButton.setOnClickListener(v -> sendCommand("03"));
+        clearButton.setOnClickListener(v -> sendCommand("04"));
+    }
+
+    private void sendCommand(String command) {
+        try {
+            outStream.write((command + "\r").getBytes());
+            outStream.flush();
+
+            byte[] buffer = new byte[1024];
+            int bytes = inStream.read(buffer);
+            String response = new String(buffer, 0, bytes);
+            resultView.setText("Response: " + response);
+
+        } catch (IOException e) {
+            resultView.setText("Error: " + e.getMessage());
+        }
+    }
+}← Main screen code
 │   │   ├── ObdScanner.java    ← OBD2 communication logic
 │   │   ├── ReportGen.java     ← PDF report generation
-│   │   └── BluetoothHandler.java
+│   │   └── BluetoothHandler.javapackage com.turborecon.obd2;
+
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.util.Log;
+
+import java.io.IOException;
+import java.util.UUID;
+
+public class BluetoothHandler {
+
+    private static BluetoothSocket bluetoothSocket;
+    private static final UUID OBD_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+
+    public static boolean connectToDevice(BluetoothDevice device) {
+        try {
+            bluetoothSocket = device.createRfcommSocketToServiceRecord(OBD_UUID);
+            bluetoothSocket.connect();
+            Log.d("BluetoothHandler", "Connected to " + device.getName());
+            return true;
+        } catch (IOException e) {
+            Log.e("BluetoothHandler", "Connection failed: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static BluetoothSocket getSocket() {
+        return bluetoothSocket;
+    }
+
+    public static boolean isConnected() {
+        return bluetoothSocket != null && bluetoothSocket.isConnected();
+    }
+
+    public static void closeConnection() {
+        try {
+            if (bluetoothSocket != null) {
+                bluetoothSocket.close();
+            }
+        } catch (IOException e) {
+            Log.e("BluetoothHandler", "Close failed: " + e.getMessage());
+        }
+    }
+}listView.setOnItemClickListener((parent, view, position, id) -> {
+    String deviceInfo = ((TextView) view).getText().toString();
+    String deviceAddress = deviceInfo.substring(deviceInfo.length() - 17); // Get MAC address
+    BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
+
+    boolean connected = BluetoothHandler.connectToDevice(device);
+    if (connected) {
+        Toast.makeText(getApplicationContext(), "Connected to " + device.getName(), Toast.LENGTH_SHORT).show();
+
+        // Optional: Launch DTC Scanner directly after connection
+        Intent intent = new Intent(MainActivity.this, DtcScannerActivity.class);
+        startActivity(intent);
+    } else {
+        Toast.makeText(getApplicationContext(), "Connection failed", Toast.LENGTH_SHORT).show();
+    }
+});
 │   └── res/
-│       ├── layout/
+│       ├── layout/<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="DTC Scanner"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/btnReadDTC"
+        android:text="Read Fault Codes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnClearDTC"
+        android:text="Clear Fault Codes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/dtcResult"
+        android:text="Results will appear here"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"/>
+</LinearLayout>
 │       │   └── activity_main.xml  ← App screen layout
-│       └── drawable/
+│       └── drawable/<activity android:name=".DtcScannerActivity"/>
 │           └── logo_turbo.png     ← App logo
 ├── .gitignore                ← Files GitHub will ignore
 ├── build.gradle              ← App build settings
