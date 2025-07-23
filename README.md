@@ -1,4 +1,34 @@
-# TurboReconCentee--OBD2-diagnostic-APK
+# Turbo Recon Centre APK Installation Guide
+
+## 1. Download the APK
+Choose one of the following links:
+- [GitHub Release](https://github.com/YourUsername/TurboRecon/releases/download/v1.0/turbo-recon-centre.apk)
+- [Google Drive Backup](https://drive.google.com/file/d/TURBO-RECON-APK)
+
+_File size: ~30 MB_
+
+## 2. Enable installation from unknown sources
+1. Go to **Settings > Security** (or Apps & notifications > Special app access)  
+2. Enable **"Install unknown apps"** for your browser or file manager  
+
+## 3. Install the APK
+1. After download, open your **Downloads** folder or notification panel  
+2. Tap the `.apk` file  
+3. Tap **Install**, then **Open**
+
+## 4. Use the app
+- Launch the app
+- Pair with **ELM327 Bluetooth**
+- Use:
+  - Customer database (add/search/edit)
+  - Diagnostic reports (with editable checklist & signature)
+  - Invoice generation (editable, branded, PDF export)
+  - Print or share via Android options
+
+## 🛠️ Troubleshooting
+- **Install issues?** Check “Unknown Sources” permission  
+- **Bluetooth issues?** Pair the ELM327 in Android Settings > Bluetooth  
+- **Need help?** Contact me anytime!# TurboReconCentee--OBD2-diagnostic-APK
 TurboRecon-OBD2-App/
 ├── app/
 │   ├── src/
