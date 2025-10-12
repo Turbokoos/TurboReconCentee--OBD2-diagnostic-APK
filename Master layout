@@ -65,7 +65,92 @@ public class MainActivity extends Activity {
         }
     }
 }← Main screen code
-│   │   ├── ObdScanner.java    ← OBD2 communication logic
+│   │   ├── ObdScanner.java    ←<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 🌟 App Identity -->
+    <string name="app_name">Turbo Recon Centre OBD2</string>
+    <string name="slogan">Boost Performance Daily</string>
+
+    <!-- 🏠 Main Screen -->
+    <string name="main_title">Select Paired Bluetooth Device</string>
+    <string name="no_devices">No paired devices found</string>
+    <string name="connecting">Connecting to %1$s...</string>
+    <string name="bluetooth_not_supported">Bluetooth not supported on this device</string>
+    <string name="enable_bluetooth">Please enable Bluetooth</string>
+    <string name="paired_devices">Paired Devices</string>
+
+    <!-- 🚗 Vehicle Selection -->
+    <string name="vehicle_section">Vehicle Information</string>
+    <string name="vehicle_make">Make</string>
+    <string name="vehicle_model">Model</string>
+    <string name="vehicle_year">Year</string>
+    <string name="vehicle_vin">VIN Number</string>
+    <string name="btn_vehicle_save">Save Vehicle Info</string>
+
+    <!-- 🧰 Workshop / Customer Info -->
+    <string name="workshop_section">Workshop & Customer Details</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="customer_contact">Contact Number</string>
+    <string name="vehicle_reg">Vehicle Registration</string>
+    <string name="btn_customer_save">Save Customer Info</string>
+
+    <!-- 🔧 OBD Diagnostic -->
+    <string name="obd_section">OBD2 Diagnostics</string>
+    <string name="btn_quick_scan">Quick Scan</string>
+    <string name="btn_full_scan">Full Scan</string>
+    <string name="btn_live_data">Live Data</string>
+    <string name="btn_graphs">Graphs (Actual vs Requested)</string>
+    <string name="btn_clear_codes">Clear Codes</string>
+    <string name="msg_scanning">Scanning vehicle systems...</string>
+    <string name="msg_cleared">Diagnostic codes cleared</string>
+    <string name="msg_no_codes">No DTCs found</string>
+
+    <!-- ⚙️ Programming / Adaptations -->
+    <string name="programming_section">Programming & Adaptations</string>
+    <string name="btn_adaptations">Adaptations</string>
+    <string name="btn_calibrations">Calibrations</string>
+    <string name="btn_module_coding">Module Coding</string>
+    <string name="msg_programming">Entering programming mode...</string>
+
+    <!-- 🏢 Company Info -->
+    <string name="company_section">Turbo Recon Centre</string>
+    <string name="company_phone">082 668 8420</string>
+    <string name="company_address">Dahlia Street, Visagie Park, Nigel 1492</string>
+    <string name="company_edit_phone">Edit Phone Number</string>
+    <string name="company_edit_address">Edit Address</string>
+
+    <!-- 📄 Reports -->
+    <string name="report_section">Diagnostic Report</string>
+    <string name="btn_generate_report">Generate PDF Report</string>
+    <string name="btn_share_report">Share Report</string>
+    <string name="report_saved">Report saved successfully</string>
+    <string name="report_title">Turbo Recon Centre - OBD2 Diagnostic Report</string>
+
+    <!-- ⚙️ Common UI -->
+    <string name="btn_back">Back</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_ok">OK</string>
+    <string name="loading">Loading...</string>
+
+    <!-- 📢 Toast / Info Messages -->
+    <string name="toast_connecting">Connecting to device...</string>
+    <string name="toast_disconnected">Disconnected</string>
+    <string name="toast_connected">Connected successfully</string>
+    <string name="toast_connection_failed">Connection failed</string>
+
+    <!-- 🔐 Settings -->
+    <string name="settings_section">App Settings</string>
+    <string name="toggle_sound">Enable Sound Feedback</string>
+    <string name="toggle_vibration">Enable Vibration Feedback</string>
+    <string name="toggle_dark_mode">Enable Dark Mode</string>
+
+    <!-- 💬 Placeholders -->
+    <string name="hint_enter_name">Enter name</string>
+    <string name="hint_enter_contact">Enter contact number</string>
+    <string name="hint_enter_vehicle">Enter vehicle</string>
+    <string name="hint_enter_reg">Enter registration number</string>
+</resources> OBD2 communication logic
 │   │   ├── ReportGen.java     ← PDF report generation
 │   │   └── BluetoothHandler.java
 │   └── res/
