@@ -5,7 +5,58 @@ TurboRecon-OBD2-App/
 │   │   ├── MainActivity.java  package com.turborecon.obd2;
 
 import android.app.Activity;
+import android.app.ProgressDialog;package com.turborecon.obd2;
+
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.*;
+import java.util.Set;
+
+public class MainActivity extends Activity {
+
+    private BluetoothAdapter bluetoothAdapter;
+    private ListView listView;
+    private ProgressDialog progressDialog;
+    private ArrayAdapter<String> deviceListAdapter;
+    private Set<BluetoothDevice> pairedDevices;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        // Button listeners for navigation
+        findViewById(R.id.btn_vehicle).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, VehicleActivity.class)));
+
+        findViewById(R.id.btn_workshop).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, WorkshopActivity.class)));
+
+        findViewById(R.id.btn_obd).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, ObdActivity.class)));
+
+        findViewById(R.id.btn_programming).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, ProgrammingActivity.class)));
+
+        findViewById(R.id.btn_company).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, CompanyActivity.class)));
+
+        if (bluetoothAdapter == null) {
+            Toast.makeText(this, getString(R.string.bluetooth_not_supported), Toast.LENGTH_SHORT).show();
+            finish();
+        } else if (!bluetoothAdapter.isEnabled()) {
+            Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBT, 0);
+        }
+    }
+}
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
